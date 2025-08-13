@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>All Skills</h2>
+
+    <ul class="list-group">
+        {% for skill in skills %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+    <div style="width: 80%;">
+        <strong>{{ skill.name }}</strong> - {{ skill.description }}<br>
+        <small class="text-muted">by {{ skill.created_by.username }}</small><br>
+        <small class="text-muted">Created on: {{ skill.created_at|date:"F j, Y, g:i a" }}</small>
+    </div>
+    <div>
+        {% if request.user.is_superuser %}
+            <a href="{% url 'skill_edit' skill.pk %}" class="btn btn-sm btn-primary">Edit</a>
+            <a href="{% url 'skill_delete' skill.pk %}" class="btn btn-sm btn-danger">Delete</a>
+        {% endif %}
+    </div>
+</li>
+
+        {% empty %}
+            <li class="list-group-item text-muted">No skills found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

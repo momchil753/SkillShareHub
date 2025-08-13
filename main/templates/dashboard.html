@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<p>Welcome, {{ user.username }}! You are logged in.</p>
+
+<div class="mt-4">
+    <a style="width: 20%" href="{% url 'skill_create' %}" class="btn btn-primary me-2">Create Skill</a>
+    <a style="width: 15%" href="{% url 'skills_mine' %}" class="btn btn-success me-2">My Skills</a>
+    <a style="width: 13%" href="{% url 'skills_all' %}" class="btn btn-secondary">All Skills</a>
+</div>
+
+<div class="mt-4">
+    <a style="width: 20%" href="{% url 'videogame_create' %}" class="btn btn-primary me-2">Add a video game & activity</a>
+    <a style="width: 15%" href="{% url 'videogame_mine' %}" class="btn btn-success me-2">My Games</a>
+    <a style="width: 13%" href="{% url 'videogame_list' %}" class="btn btn-secondary">All Games</a>
+</div>
+
+    <div class="mt-4">
+    <a style="width: 20%" href="{% url 'skillgroup_create' %}" class="btn btn-primary me-2">Create SkillGroup</a>
+        <a style="width: 15%" href="{% url 'skillgroup_mine' %}" class="btn btn-success me-2">My Skillgroups</a>
+
+    <a style="width: 13%" href="{% url 'skillgroup_list' %}" class="btn btn-secondary">All SkillGroups</a>
+</div>
+    <div class="mt-4">
+    <a style="width: 20%" href="{% url 'tournament_create' %}" class="btn btn-primary me-2">Create Tournaments % Events</a>
+    <a style="width: 15%" href="{% url 'tournaments_mine' %}" class="btn btn-success me-2">My Tournaments</a>
+    <a style="width: 13%" href="{% url 'tournament_list' %}" class="btn btn-secondary me-2">All Tournaments</a>
+    </div>
+
+{% endblock %}

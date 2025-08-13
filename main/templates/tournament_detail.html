@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ tournament.name }}</h2>
+    <p>{{ tournament.description }}</p>
+    <p><strong>Created by:</strong> {{ tournament.created_by.username }}</p>
+
+    <div class="mt-3">
+        <a href="{% url 'tournament_going' tournament.pk %}" 
+           class="btn btn-sm {% if user in tournament.going_users.all %}btn-success{% else %}btn-secondary{% endif %}">
+           Yes, I’m going
+        </a>
+        <a href="{% url 'tournament_not_going' tournament.pk %}" 
+           class="btn btn-sm {% if user in tournament.not_going_users.all %}btn-danger{% else %}btn-secondary{% endif %}">
+           No, not going
+        </a>
+    </div>
+
+    <hr>
+
+    <h4>People Going</h4>
+    {% if tournament.going_users.all %}
+        <ul>
+            {% for u in tournament.going_users.all %}
+                <li>{{ u.username }}</li>
+            {% empty %}
+                <li>No one has joined yet.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h4>People Not Going</h4>
+    {% if tournament.not_going_users.all %}
+        <ul>
+            {% for u in tournament.not_going_users.all %}
+                <li>{{ u.username }}</li>
+            {% empty %}
+                <li>No one has declined yet.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

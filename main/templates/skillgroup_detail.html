@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ skillgroup.name }}</h2>
+<p>{{ skillgroup.description }}</p>
+
+{% if skillgroup.owner == user or request.user.is_superuser%}
+  <a href="{% url 'skillgroup_update' skillgroup.pk %}" class="btn btn-primary">Edit</a>
+  <a href="{% url 'skillgroup_delete' skillgroup.pk %}" class="btn btn-danger">Delete</a>
+{% endif %}
+
+<hr>
+
+<h3>Skills in this group:</h3>
+<ul>
+  {% for skill in skillgroup.skills.all %}
+    <li>
+      <a style="color: black; text-decoration: none" href="{% url 'skill_edit' skill.pk %}">{{ skill.name }}</a>
+    </li>
+  {% empty %}
+    <li>No skills found in this group.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

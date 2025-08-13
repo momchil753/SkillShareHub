@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>All Tournaments</h2>
+    <a href="{% url 'tournament_create' %}" class="btn btn-success mb-3">Create Tournament</a>
+    <ul class="list-group">
+        {% for tournament in tournaments %}
+            <li class="list-group-item">
+                <strong>{{ tournament.name }}</strong> - {{ tournament.description }}
+                <br>
+                <small>Created by {{ tournament.created_by.username }}</small>
+                <br>
+                <small>Date: {{ tournament.date }}</small>
+                <div class="mt-2">
+    <a href="{% url 'tournament_going' tournament.pk %}"
+       class="btn btn-sm {% if user in tournament.going_users.all %}btn-success{% else %}btn-secondary{% endif %}">
+       Yes, I’m going
+    </a>
+    <a href="{% url 'tournament_not_going' tournament.pk %}"
+       class="btn btn-sm {% if user in tournament.not_going_users.all %}btn-danger{% else %}btn-secondary{% endif %}">
+       No, not going
+    </a>
+                <a href="{% url 'tournament_detail' tournament.pk %}" class="btn btn-sm btn-primary">Details</a>
+                {% if request.user.is_superuser %}
+            <a href="{% url 'tournament_update' tournament.pk %}" class="btn btn-sm btn-primary">Edit</a>
+            <a href="{% url 'tournament_delete' tournament.pk %}" class="btn btn-sm btn-danger">Delete</a>
+        {% endif %}
+</div>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-muted">No tournaments available.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

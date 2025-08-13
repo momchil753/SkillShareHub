@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>My Tournaments</h2>
+    <a href="{% url 'tournament_create' %}" class="btn btn-primary mb-3">Add New Tournament</a>
+    <ul class="list-group">
+        {% for tournament in tournaments %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ tournament.title }}</strong> - {{ tournament.description }}
+                    <br>
+                    <small class="text-muted">Date: {{ tournament.date }}</small>
+                </div>
+                <div>
+                    <a href="{% url 'tournament_update' tournament.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'tournament_delete' tournament.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-muted">You haven’t added any tournaments yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

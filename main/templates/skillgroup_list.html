@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Skill Groups</h2>
+<a href="{% url 'skillgroup_create' %}" class="btn btn-success mb-3">Create New Skill Group</a>
+<div class="list-group">
+  {% for group in skillgroups %}
+    <a href="{% url 'skillgroup_detail' group.pk %}" class="list-group-item list-group-item-action">
+      <strong>{{ group.name }}</strong><br>
+      <small class="text-muted">Created by {{ group.owner.username }} on {{ group.created_at|date:"F j, Y, g:i a" }}</small>
+    </a>
+  {% empty %}
+    <p>No skill groups found.</p>
+  {% endfor %}
+</div>
+{% endblock %}
